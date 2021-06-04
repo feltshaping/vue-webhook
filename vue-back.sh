@@ -1,5 +1,5 @@
 #!/bin/bash
-WORK_PATH='/usr/projects/vue-back'
+WORK_PATH='/root/webhook/vue-back'
 cd $WORK_PATH
 echo 'clear old'
 git reset --hard origin/master
