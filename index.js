@@ -18,21 +18,21 @@ let server = http.createServer((req, res) => {
       if (signature !== sign(body)) {
         return res.end('Not allowed');
       }
+      res.setHeader('Content-Type', 'application/json');
+      res.end(JSON.stringify({ ok: true }));
+      if (event == 'push') {
+        let payload = JSON.parse(body);
+        let child = spawn('sh', [`./${payload.respository.name}.sh`]);
+        let buffers = [];
+        child.stdout.on('data', function (buffer) {
+          buffers.push(buffer);
+        });
+        child.stdout.on('end', function (buffer) {
+          let log = Buffer.concat(buffers);
+          console.log(log);
+        });
+      }
     });
-    res.setHeader('Content-Type', 'application/json');
-    res.end(JSON.stringify({ ok: true }));
-    if (event == 'push') {
-      let payload = JSON.parse(body);
-      let child = spawn('sh', [`./${payload.respository.name}.sh`]);
-      let buffers = [];
-      child.stdout.on('data', function (buffer) {
-        buffers.push(buffer);
-      });
-      child.stdout.on('end', function (buffer) {
-        let log = Buffer.concat(buffers);
-        console.log(log);
-      });
-    }
   } else {
     res.end('Not found');
   }
