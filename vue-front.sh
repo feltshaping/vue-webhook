@@ -10,7 +10,7 @@ echo '编译'
 npm install
 npm run build
 echo 'build'
-docker build -t  --no-cache vue-front:1.0 .
+docker build --no-cache -t vue-front:1.0 .
 echo 'stop old container'
 docker stop vue-front-container
 docker rm vue-front-container
