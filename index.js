@@ -13,7 +13,7 @@ let server = http.createServer((req, res) => {
     });
     req.on('end', (buffer) => {
       let body = Buffer.concat(buffers);
-      let event = req.header['x-github-event'];
+      let event = req.headers['x-github-event'];
       let signature = req.headers['x-hub-signature'];
       // console.log(event, signature, sign(body));
       if (signature !== sign(body)) {
