@@ -1,0 +1,18 @@
+{
+  "name": "webhook",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "pm2 start ./index.js --name webhook --watch",
+    "stop": "pm2 stop webhook"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "http": "0.0.1-security",
+    "nodemailer": "^6.4.14"
+  }
+}
