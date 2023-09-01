@@ -13,7 +13,7 @@ let server = http.createServer((req, res) => {
     });
     req.on('end', (buffer) => {
       let body = Buffer.concat(buffers);
-      let event = req.headers['x-github-event'];
+      let event = req.header['x-github-event'];
       let signature = req.headers['x-hub-signature'];
       // console.log(event, signature, sign(body));
       if (signature !== sign(body)) {
@@ -23,6 +23,7 @@ let server = http.createServer((req, res) => {
       res.end(JSON.stringify({ ok: true }));
       if (event == 'push') {
         let payload = JSON.parse(body);
+        console.log('!payload',payload)
         console.log(payload.repository.name+'push请求')
 
         let child = spawn('sh', [`./${payload.repository.name}.sh`]);
