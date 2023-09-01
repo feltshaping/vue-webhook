@@ -7,6 +7,7 @@ git clean -f
 echo 'pull latest'
 git pull origin master
 echo '编译'
+npm install
 npm run build
 echo 'build'
 docker build -t vue-front:1.0 .
