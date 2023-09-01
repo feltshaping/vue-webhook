@@ -23,18 +23,15 @@ let server = http.createServer((req, res) => {
       res.end(JSON.stringify({ ok: true }));
       if (event == 'push') {
         let payload = JSON.parse(body);
-        console.log('!payload',payload)
-        // console.log(payload.repository.name+'push请求')
-
-        // let child = spawn('sh', [`./${payload.repository.name}.sh`]);
-        // let buffers = [];
-        // child.stdout.on('data', function (buffer) {
-        //   buffers.push(buffer);
-        // });
-        // child.stdout.on('end', function (buffer) {
-        //   let log = Buffer.concat(buffers).toString();
-        //   console.log('sh done!',log);
-        // });
+        let child = spawn('sh', [`./${payload.repository.name}.sh`]);
+        let buffers = [];
+        child.stdout.on('data', function (buffer) {
+          buffers.push(buffer);
+        });
+        child.stdout.on('end', function (buffer) {
+          let log = Buffer.concat(buffers).toString();
+          console.log('sh done!',log);
+        });
       }
     });
   } else {
